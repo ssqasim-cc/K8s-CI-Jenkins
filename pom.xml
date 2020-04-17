@@ -26,7 +26,7 @@
         <maven.compiler.version>3.8.0</maven.compiler.version>
         <mockito.version>2.27.0</mockito.version>
         <checkstyle.file.path>checkstyle.xml</checkstyle.file.path>
-        <checkstyle.latest.version>8.19</checkstyle.latest.version>
+        <checkstyle.latest.version>8.29</checkstyle.latest.version>
         <jmockit.version>1.41</jmockit.version>
         <jacoco.version>0.8.3</jacoco.version>
         <jacoco.dependency.version>3.8</jacoco.dependency.version>
