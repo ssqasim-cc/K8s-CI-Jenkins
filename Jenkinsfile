@@ -44,15 +44,6 @@ pipeline {
                   }
           }
 
-
-		stage('SQ Quality Gate') {
-		  steps {
-			timeout(time: 3, unit: 'MINUTES') {
-			    waitForQualityGate abortPipeline: false
-			}
-		  }
-		}
-
 		stage ('Package') {
 		    when {
                 expression {
