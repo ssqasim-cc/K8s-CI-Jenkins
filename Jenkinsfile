@@ -40,7 +40,7 @@ pipeline {
 		stage("build & SonarQube analysis") {
             steps {
                
-                sh 'mvn clean package sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}'
+                sh "mvn clean package sonar:sonar -Dsonar.host.url=${env.SONARQUBE_HOST}"
                   }
           }
 
