@@ -3,8 +3,11 @@ def projectName = 'template-microservice'
 def projectKey = 'io.digital.supercharger:template-microservice'
 pipeline {
     agent any
-    tools { 
-        maven 'Maven 3.5.4'  
+    /* I advise to add these tools in pipeline in order to avoid installing it globally through Dockerfile which will increases image size and cause latency in deployments. 
+    But I have to do it as a work around to fix `mvn not present error`, ocurring frequently..*/   
+    tools {
+        maven 'Maven 3'
+        jdk 'open-jdk8'
     }
     stages {
         stage ('Compile') {
@@ -66,15 +69,17 @@ pipeline {
             junit 'target/surefire-reports/**/*.xml'
             deleteDir() /* clean up our workspace */
         }
+           /* This will send email in case of failure with logs in compress format.
+           with Job Name,Build Number and Build Result */
         failure{
             echo 'Sending email'
-            
-           emailext subject: "${currentBuild.result}: Job '${env.JOB_NAME} - Build #(${env.BUILD_NUMBER})'",
+        
+            emailext subject: "${currentBuild.result}: Job '${env.JOB_NAME} - Build #(${env.BUILD_NUMBER})'",
             body: """<p>${env.JOB_NAME} - Build #(${env.BUILD_NUMBER}) - ${currentBuild.result}</p>""",
             recipientProviders: [[$class: 'CulpritsRecipientProvider']],
             attachLog: true, compressLog: true,
             mimeType: 'text/html',
             to: 'safderqasim@yahoo.com'
         }
-     }
+    }
 }
